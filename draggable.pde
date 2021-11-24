@@ -27,6 +27,11 @@ class Draggable extends GameObject {
     
     @Override 
     public void mousePressed() {
+        if (mouseButton == RIGHT && isBeingDragged) {
+            println("x: " + x + ", y: " + y);
+            return;
+        }
+        
         if (!mouseIsHovering || mouseButton != LEFT) { return; }
         
         offset = new PVector(mouseX - x, mouseY - y);        

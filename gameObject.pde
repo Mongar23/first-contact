@@ -3,12 +3,15 @@ class GameObject {
     protected int y;
     protected int owidth;
     protected int oheight;
+    protected boolean mouseIsHovering;
     private String identifier;
     private boolean hasImage;
     private boolean hasHoverImage;
+    private boolean hasClickedImage;
+    private boolean mouseHasClicked;
     private PImage gameObjectImage;
     private PImage gameObjectImageHover;
-    protected boolean mouseIsHovering;
+    private PImage gameObjectImageClicked;
     
     public GameObject(String identifier, int x, int y, int owidth, int oheight) {
         this(identifier, x, y, owidth, oheight, "");
@@ -33,11 +36,20 @@ class GameObject {
         hasHoverImage = true;
     }
     
+    public void setClickedImage(String gameObjectImageClickedFile) {
+        this.gameObjectImageClicked = loadImage(gameObjectImageClickedFile);
+        hasClickedImage = true;
+    }
+    
     public void draw() {
         if (hasImage) {
             if (mouseIsHovering && hasHoverImage) {
                 image(gameObjectImageHover, x, y, owidth, oheight);
-            } else {
+            } 
+            else if (mouseHasClicked && hasClickedImage) {
+                image(gameObjectImageClicked, x, y, owidth, oheight);
+            }
+            else{
                 image(gameObjectImage, x, y, owidth, oheight);
             }
         }
@@ -51,7 +63,13 @@ class GameObject {
         }
     }
     
-    public void mouseClicked() { }
+    public void mouseClicked() { 
+        if (!mouseIsHovering) { return; }
+        
+        println("clicked " + identifier);
+        
+        mouseHasClicked = true;
+    }
     
     public void mousePressed() { }
     
