@@ -8,9 +8,6 @@ void settings() {
     size(windowWidth, windowHeight);
 }
 
-//
-
-
 void setup() {    
     Scene mainMenu = new Scene("mainMenu", "white1x1.png");
     GameObject startPainting = new GameObject("mainMenu_painting", 10, 25, 530, 750, "paintingNormal.jpg");
@@ -51,8 +48,13 @@ void setup() {
     
     Scene bedRoom = new Scene("bedRoom", "bed-room-TEMP.jpg");
     bedRoom.addGameObject(new MoveToSceneObject("bedRoom-to-kitchen", 400, 50, 50, 50, "arrowUp.png","kitchen"));
-    bedRoom.addGameObject(new MoveToSceneObject("bedRoom-to-bathRoom", 400, 700, 50, 50, "arrowDown.png","bathRoom"));
+    bedRoom.addGameObject(new MoveToSceneObject("bedRoom-to-bathRoom", 400, 700, 50, 50, "arrowDown.png","mirrorPuzzle"));
     sceneManager.addScene(bedRoom);
+    
+    Scene mirrorPuzzleScene = new Scene("mirrorPuzzle", "white1x1.png");
+    MirrorPuzzle mirrorPuzzle = new MirrorPuzzle();
+    mirrorPuzzleScene.addGameObject(mirrorPuzzle);
+    sceneManager.addScene(mirrorPuzzleScene);
     
     Scene bathRoom = new Scene("bathRoom", "bath-room-TEMP.jpg");
     bathRoom.addGameObject(new MoveToSceneObject("bathRoom-to-bedRoom", 650, 50, 50, 50, "arrowUp.png","bedRoom"));
