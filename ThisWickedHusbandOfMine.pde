@@ -22,14 +22,21 @@ void setup() {
     // --------------------------------------MAIN GAME--------------------------------------------------------------------------------------------------------
     Collectable hallKey = new Collectable("hallKey", "key.png");
     
-    Scene livingRoom = new Scene("livingRoom", "living-room-TEMP.jpg");
-    MoveToSceneObject livingRoomToHall = new MoveToSceneObject("livingRoom-to-hall", 50, 350, 50, 50, "arrowLeft.png","hall");
-    livingRoom.addGameObject(new RequireObject("toHallLock", 50, 350, 50, 50, "lock.png", "You need to find the key first!", hallKey, livingRoomToHall));
-    livingRoom.addGameObject(new MoveToSceneObject("lingRoom-to-kitchen", 400, 50, 50, 50, "arrowUp.png", "reactionPuzzle"));
-    livingRoom.addGameObject(new CollectableObject("hallKey", 200, 200, 50, 50, hallKey));
-    livingRoom.addGameObject(new Draggable("draggable0", 200, 200, 75, 75, "gameObject.png"));
-    livingRoom.addGameObject(new Draggable("draggable1", 600, 600, 75, 75, "gameObject.png"));
-    sceneManager.addScene(livingRoom);
+    Scene livingRoom = new Scene("livingRoom", "10LR_Background.png");
+  MoveToSceneObject livingRoomToHall = new MoveToSceneObject("livingRoom-to-hall", 50, 350, 50, 50, "arrowLeft.png", "hall");
+  livingRoom.addGameObject(new RequireObject("toHallLock", 50, 350, 50, 50, "lock.png", "You need to find the key first!", hallKey, livingRoomToHall));
+  livingRoom.addGameObject(new MoveToSceneObject("lingRoom-to-kitchen", 400, 50, 50, 50, "arrowUp.png", "reactionPuzzle"));
+  livingRoom.addGameObject(new CollectableObject("hallKey", 200, 200, 50, 50, hallKey));
+  livingRoom.addGameObject(new Draggable("Painting", 775, 300, 130, 206, "9LR_Painting.png"));
+  livingRoom.addGameObject(new Draggable("Lamp", 550, 400, 195, 266, "8LR_Lamp.png"));
+  livingRoom.addGameObject(new Draggable("LoungeChair", 440, 550, 250, 134, "7LR_LoungeChair.png"));
+  livingRoom.addGameObject(new Draggable("Couch", 75, 570, 336, 133, "6LR_Couch.png"));
+  livingRoom.addGameObject(new Draggable("Table", 575, 615, 187, 104, "5LR_Table.png"));
+  livingRoom.addGameObject(new Draggable("Fan", 60, 530, 96, 206, "4LR_Fan.png"));
+  livingRoom.addGameObject(new Draggable("Box", 670, 565, 87, 86, "3LR_Box.png"));
+  livingRoom.addGameObject(new Draggable("Cigs", 640, 615, 58, 50, "2LR_Cigs.png"));
+  livingRoom.addGameObject(new Draggable("LightFixture", 100, 0, 608, 470, "1LR_LightFixture.png"));
+  sceneManager.addScene(livingRoom);
     
     Scene reactionPuzzleScene = new Scene("reactionPuzzle", "white1x1.png");
     ReactionPuzzle reactionPuzzle = new ReactionPuzzle();
