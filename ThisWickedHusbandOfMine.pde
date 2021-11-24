@@ -75,7 +75,8 @@ void setup() {
     bathRoom.addGameObject(new MoveToSceneObject("bathRoom-to-hall", 50, 350, 50, 50, "arrowLeft.png","hall"));
     sceneManager.addScene(bathRoom);
     
-    Scene hall = new Scene("hall", "hall-TEMP.jpg");
+    Scene hall = new Scene("hall", "2HW_Background.png");
+    hall.addGameObject(new Draggable("Plant", 143, 535, 96, 96, "1HW_Plant.png"));
     hall.addGameObject(new MoveToSceneObject("hall-to-bathRoom", 700, 700, 50, 50, "arrowRight.png","bathRoom"));
     hall.addGameObject(new MoveToSceneObject("hall-to-paintingRoom", 350, 50, 50, 50, "arrowUp.png","wirePuzzle"));
     sceneManager.addScene(hall);

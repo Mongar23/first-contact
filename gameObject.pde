@@ -65,9 +65,6 @@ class GameObject {
     
     public void mouseClicked() { 
         if (!mouseIsHovering) { return; }
-        
-        println("clicked " + identifier);
-        
         mouseHasClicked = true;
     }
     
