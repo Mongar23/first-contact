@@ -8,6 +8,9 @@ void settings() {
     size(windowWidth, windowHeight);
 }
 
+//
+
+
 void setup() {    
     Scene mainMenu = new Scene("mainMenu", "white1x1.png");
     GameObject startPainting = new GameObject("mainMenu_painting", 10, 25, 530, 750, "paintingNormal.jpg");
