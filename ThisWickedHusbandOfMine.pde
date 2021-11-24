@@ -78,8 +78,15 @@ void setup() {
     wirePuzzleScene.addGameObject(wirePuzzle);
     sceneManager.addScene(wirePuzzleScene);
     
-    Scene paintingRoom = new Scene("paintingRoom", "painting-room-TEMP.jpg");
+    Scene paintingRoom = new Scene("paintingRoom", "8PR_Background.png");
     paintingRoom.addGameObject(new MoveToSceneObject("paintingRoom-to-hall", 350, 700, 50, 50, "arrowDown.png", "hall"));
+    paintingRoom.addGameObject(new Draggable("Painting", 320, 280, 190, 236, "7PR_Painting.png"));
+    paintingRoom.addGameObject(new Draggable("Plant", 100, 500, 212, 166, "6PR_Plant.png")); 
+    paintingRoom.addGameObject(new Draggable("WallLight", 200, 180, 416, 434, "5PR_WallLight.png"));
+    paintingRoom.addGameObject(new Draggable("BigCanvas", 600, 375, 243, 314, "4PR_BigCanvas.png"));
+    paintingRoom.addGameObject(new Draggable("Canvas", 450, 500, 201, 161, "3PR_Canvas.png"));
+    paintingRoom.addGameObject(new Draggable("Chair", 20, 540, 341, 230, "2PR_Chair.png"));
+    paintingRoom.addGameObject(new Draggable("Lamp", 0, 700, 292, 426, "1PR_Lamp.png"));
     sceneManager.addScene(paintingRoom); 
 }
 
