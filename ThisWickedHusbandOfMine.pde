@@ -61,11 +61,15 @@ void setup() {
     bathRoom.addGameObject(new MoveToSceneObject("bathRoom-to-hall", 50, 350, 50, 50, "arrowLeft.png","hall"));
     sceneManager.addScene(bathRoom);
     
-    
     Scene hall = new Scene("hall", "hall-TEMP.jpg");
     hall.addGameObject(new MoveToSceneObject("hall-to-bathRoom", 700, 700, 50, 50, "arrowRight.png","bathRoom"));
-    hall.addGameObject(new MoveToSceneObject("hall-to-paintingRoom", 350, 50, 50, 50, "arrowUp.png","paintingRoom"));
+    hall.addGameObject(new MoveToSceneObject("hall-to-paintingRoom", 350, 50, 50, 50, "arrowUp.png","wirePuzzle"));
     sceneManager.addScene(hall);
+    
+    Scene wirePuzzleScene = new Scene("wirePuzzle", "white1x1.png");
+    WirePuzzle wirePuzzle = new WirePuzzle();
+    wirePuzzleScene.addGameObject(wirePuzzle);
+    sceneManager.addScene(wirePuzzleScene);
     
     Scene paintingRoom = new Scene("paintingRoom", "painting-room-TEMP.jpg");
     paintingRoom.addGameObject(new MoveToSceneObject("paintingRoom-to-hall", 350, 700, 50, 50, "arrowDown.png", "hall"));
