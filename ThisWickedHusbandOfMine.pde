@@ -1,16 +1,31 @@
+import processing.sound.*;
+
 final int windowWidth = 800;
 final int windowHeight = windowWidth;
 
 final SceneManager sceneManager = new SceneManager();
 final InventoryManager inventoryManager = new InventoryManager();
 
+SoundFile mainTheme;
+SoundFile glassCrash;
+SoundFile wrongSound;
+SoundFile correctSound;
+
 void settings() {
     size(windowWidth, windowHeight);
 }
 
 void setup() {    
+    int startTime = millis();
     // --------------------------------------START UP-----------------------------------------------------------------------------------------------------------
     Collectable hallKey = new Collectable("hallKey", "key.png");
+    mainTheme = new SoundFile(this, "mainTheme.mp3");
+    mainTheme.amp(0.25f);
+    glassCrash = new SoundFile(this, "GlassCrash.mp3");
+    wrongSound = new SoundFile(this, "ErrorSound.mp3");
+    correctSound = new SoundFile(this, "CorrectSound.mp3");
+    correctSound.amp(0.75f);
+    
     
     // --------------------------------------MAIN MENU----------------------------------------------------------------------------------------------------------
     Scene mainMenu = new Scene("mainMenu", "white1x1.png");
@@ -36,7 +51,7 @@ void setup() {
     livingRoom.addGameObject(new Draggable("Cigs", 640, 615, 58, 50, "2LR_Cigs.png"));
     livingRoom.addGameObject(new Draggable("LightFixture", 100, 0, 608, 470, "1LR_LightFixture.png"));
     MoveToSceneObject livingRoomToHall = new MoveToSceneObject("livingRoom-to-hall", 50, 350, 50, 50, "arrowLeft.png", "hall");
-    livingRoom.addGameObject(new RequireObject("toHallLock", 50, 350, 50, 50, "lock.png", "You need to find the key first!", hallKey, livingRoomToHall));
+    livingRoom.addGameObject(new RequireObject("livingRoomLock", 50, 350, 50, 50, "lock.png", "You need to find the key first!", hallKey, livingRoomToHall));
     livingRoom.addGameObject(new MoveToSceneObject("lingRoom-to-kitchen", 400, 50, 50, 50, "arrowUp.png", "reactionPuzzle"));
     sceneManager.addScene(livingRoom);
     
@@ -46,7 +61,7 @@ void setup() {
     sceneManager.addScene(reactionPuzzleScene);
     
     Scene kitchen = new Scene("kitchen", "11K_Background.png");
-    kitchen.addGameObject(new CollectableObject("hallKey", 64, 447, 53, 50, hallKey));
+    kitchen.addGameObject(new CollectableObject("hallKey", 70, 442, 50, 50, hallKey));
     kitchen.addGameObject(new Draggable("10K_Bin", 293, 498, 57, 76, "10K_Bin.png"));
     kitchen.addGameObject(new Draggable("9K_Fridge", 321, 353, 146, 231, "9K_Fridge.png"));
     kitchen.addGameObject(new Draggable("8K_Counter", 423, 336, 416, 339, "8K_Counter.png"));
@@ -95,7 +110,8 @@ void setup() {
     bathRoom.addGameObject(new Draggable("Tub", 446, 470, 354, 200, "2BR_Tub.png"));
     bathRoom.addGameObject(new Draggable("Throne", 7, 467, 158, 195, "1BR_Throne.png"));
     bathRoom.addGameObject(new MoveToSceneObject("bathRoom-to-bedRoom", 650, 50, 50, 50, "arrowUp.png","bedRoom"));
-    bathRoom.addGameObject(new MoveToSceneObject("bathRoom-to-hall", 50, 350, 50, 50, "arrowLeft.png","hall"));
+    MoveToSceneObject bathRoomToHall = new MoveToSceneObject("bathRoom-to-hall", 50, 350, 50, 50, "arrowLeft.png","hall");
+    bathRoom.addGameObject(new RequireObject("livingRoomLock", 50, 350, 50, 50, "lock.png", "You need to find the key first!", hallKey, bathRoomToHall));
     sceneManager.addScene(bathRoom);
     
     Scene hall = new Scene("hall", "2HW_Background.png");
@@ -119,6 +135,9 @@ void setup() {
     paintingRoom.addGameObject(new Draggable("Lamp", 0, 700, 292, 426, "1PR_Lamp.png"));
     paintingRoom.addGameObject(new MoveToSceneObject("paintingRoom-to-hall", 350, 700, 50, 50, "arrowDown.png", "hall"));
     sceneManager.addScene(paintingRoom); 
+    
+    mainTheme.loop();
+    println("Setup time: " + (millis() - startTime) + "ms!");
 }
 
 void draw() {
