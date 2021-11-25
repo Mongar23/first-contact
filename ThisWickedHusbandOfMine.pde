@@ -19,6 +19,10 @@ void setup() {
     int startTime = millis();
     // --------------------------------------START UP-----------------------------------------------------------------------------------------------------------
     Collectable hallKey = new Collectable("hallKey", "key.png");
+    Collectable ring = new Collectable("ring", "The_Ring.png");
+    Collectable necklace = new Collectable("necklace", "The_Necklace.png");
+    Collectable earrings = new Collectable("earrings", "The_Earrings.png");
+    
     mainTheme = new SoundFile(this, "mainTheme.mp3");
     mainTheme.amp(0.25f);
     glassCrash = new SoundFile(this, "GlassCrash.mp3");
@@ -43,6 +47,7 @@ void setup() {
     Scene livingRoom = new Scene("livingRoom", "10LR_Background.png");
     livingRoom.addGameObject(new Draggable("Painting", 775, 300, 130, 206, "9LR_Painting.png"));
     livingRoom.addGameObject(new Draggable("Lamp", 550, 400, 195, 266, "8LR_Lamp.png"));
+    livingRoom.addGameObject(new CollectableObject("ringObject", 445, 555, 100, 111, ring));
     livingRoom.addGameObject(new Draggable("LoungeChair", 440, 550, 250, 134, "7LR_LoungeChair.png"));
     livingRoom.addGameObject(new Draggable("Couch", 75, 570, 336, 133, "6LR_Couch.png"));
     livingRoom.addGameObject(new Draggable("Table", 575, 615, 187, 104, "5LR_Table.png"));
@@ -62,16 +67,16 @@ void setup() {
     
     Scene kitchen = new Scene("kitchen", "11K_Background.png");
     kitchen.addGameObject(new CollectableObject("hallKey", 70, 442, 50, 50, hallKey));
-    kitchen.addGameObject(new Draggable("10K_Bin", 293, 498, 57, 76, "10K_Bin.png"));
-    kitchen.addGameObject(new Draggable("9K_Fridge", 321, 353, 146, 231, "9K_Fridge.png"));
-    kitchen.addGameObject(new Draggable("8K_Counter", 423, 336, 416, 339, "8K_Counter.png"));
-    kitchen.addGameObject(new Draggable("7K_Table", -73, 467, 272, 187, "7K_Table.png"));
-    kitchen.addGameObject(new Draggable("6K_Chair", 364, 575, 119, 192, "6K_Chair.png"));
-    kitchen.addGameObject(new Draggable("5K_Chair", 213, 536, 121, 196, "5K_Chair.png"));
-    kitchen.addGameObject(new Draggable("4K_Chair", 440, 563, 140, 208, "4K_Chair.png"));
-    kitchen.addGameObject(new Draggable("3K_Table", 209, 630, 310, 190, "3K_Table.png"));
-    kitchen.addGameObject(new Draggable("2K_TV", -61, 255, 234, 156, "2K_TV.png"));
-    kitchen.addGameObject(new Draggable("1K_Microwave", 64, 447, 95, 59, "1K_Microwave.png"));
+    kitchen.addGameObject(new Draggable("Bin", 293, 498, 57, 76, "10K_Bin.png"));
+    kitchen.addGameObject(new Draggable("Fridge", 321, 353, 146, 231, "9K_Fridge.png"));
+    kitchen.addGameObject(new Draggable("Counter", 423, 336, 416, 339, "8K_Counter.png"));
+    kitchen.addGameObject(new Draggable("Table", -73, 467, 272, 187, "7K_Table.png"));
+    kitchen.addGameObject(new Draggable("Chair", 364, 575, 119, 192, "6K_Chair.png"));
+    kitchen.addGameObject(new Draggable("Chair", 213, 536, 121, 196, "5K_Chair.png"));
+    kitchen.addGameObject(new Draggable("Chair", 440, 563, 140, 208, "4K_Chair.png"));
+    kitchen.addGameObject(new Draggable("Table", 209, 630, 310, 190, "3K_Table.png"));
+    kitchen.addGameObject(new Draggable("TV", -61, 255, 234, 156, "2K_TV.png"));
+    kitchen.addGameObject(new Draggable("Microwave", 64, 447, 95, 59, "1K_Microwave.png"));
     kitchen.addGameObject(new MoveToSceneObject("kitchen-to-livingRoom", 100, 700, 50, 50, "arrowDown.png","livingRoom"));
     kitchen.addGameObject(new MoveToSceneObject("kitchen-to-bedRoom", 650, 700, 50, 50, "arrowDown.png","sequencePuzzle"));
     sceneManager.addScene(kitchen);
@@ -79,21 +84,22 @@ void setup() {
     Scene sequencePuzzleScene = new Scene("sequencePuzzle", "white1x1.png");
     SequencePuzzle sequencePuzzle = new SequencePuzzle();
     sequencePuzzleScene.addGameObject(sequencePuzzle);
-    sceneManager.addScene(sequencePuzzleScene);
+    sceneManager.addScene(sequencePuzzleScene); 
     
     Scene bedRoom = new Scene("bedRoom", "9B_Background.png");
-    bedRoom.addGameObject(new MoveToSceneObject("bedRoom-to-kitchen", 400, 50, 50, 50, "arrowUp.png","kitchen"));
-    bedRoom.addGameObject(new MoveToSceneObject("bedRoom-to-bathRoom", 400, 700, 50, 50, "arrowDown.png","mirrorPuzzle"));
     GameObject bedMirror = new GameObject("Mirror", 183, 162, 130, 294, "8B_Mirror.png");
     bedMirror.setClickedImage("8B_MirrorCracked.png");
     bedRoom.addGameObject(bedMirror);
     bedRoom.addGameObject(new Draggable("Dresser", -50, 364, 280, 204, "7B_Dresser.png"));
-    bedRoom.addGameObject(new Draggable("Bedside", 0,0, 800, 800, "6B_Bedside.png"));
-    bedRoom.addGameObject(new Draggable("Bed", 150, 380, 601, 272, "5B_Bed.png"));
-    bedRoom.addGameObject(new Draggable("Bedside", 100, 0, 800, 800, "4B_Bedside.png"));
+    bedRoom.addGameObject(new CollectableObject("necklaceObject", 445, 437, 100, 117, necklace));
+    bedRoom.addGameObject(new Draggable("Bedside", 426, 416, 121, 137, "6B_Bedside.png"));
+    bedRoom.addGameObject(new Draggable("Bed", 144, 413, 601, 272, "5B_Bed.png"));
+    bedRoom.addGameObject(new Draggable("Bedside", 697, 423, 137, 159, "4B_Bedside.png"));
     bedRoom.addGameObject(new Draggable("Plant", 5, 287, 121, 85, "3B_Plant.png"));
     bedRoom.addGameObject(new Draggable("Lamp", 400, 250, 193, 245, "2B_Lamp.png"));
     bedRoom.addGameObject(new Draggable("Lamp1", 670, 230, 213, 275, "1B_Lamp.png"));
+    bedRoom.addGameObject(new MoveToSceneObject("bedRoom-to-kitchen", 400, 50, 50, 50, "arrowUp.png","kitchen"));
+    bedRoom.addGameObject(new MoveToSceneObject("bedRoom-to-bathRoom", 400, 700, 50, 50, "arrowDown.png","mirrorPuzzle"));
     sceneManager.addScene(bedRoom);
     
     Scene mirrorPuzzleScene = new Scene("mirrorPuzzle", "white1x1.png");
@@ -106,6 +112,7 @@ void setup() {
     mirror.setClickedImage("5BR_MirrorCracked.png");
     bathRoom.addGameObject(mirror);   
     bathRoom.addGameObject(new Draggable("Towelrack", 411, 393, 114, 102, "4BR_Towelrack.png"));
+    bathRoom.addGameObject(new CollectableObject("earringsObject", 120, 420, 100, 97, earrings));
     bathRoom.addGameObject(new Draggable("Sink", 106, 364, 314, 283, "3BR_Sink.png"));
     bathRoom.addGameObject(new Draggable("Tub", 446, 470, 354, 200, "2BR_Tub.png"));
     bathRoom.addGameObject(new Draggable("Throne", 7, 467, 158, 195, "1BR_Throne.png"));
