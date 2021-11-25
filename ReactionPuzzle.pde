@@ -20,10 +20,13 @@ class ReactionPuzzle extends GameObject {
   boolean solved = false;
 
   PImage background;
+  PImage flame;
 
 
   ReactionPuzzle() {
     super("ReactionPuzzle", 0, 0, 0, 0);
+    background = loadImage("ReactionPuzzleBackground.png");
+    flame = loadImage("flame.png");
   }
 
   @Override
@@ -33,12 +36,14 @@ class ReactionPuzzle extends GameObject {
 
     rectMode(CENTER);
     textAlign(CENTER, CENTER);
+    imageMode(CENTER);
 
     display();
     if (!solved) {
       move();
       rectMode(CORNER);
       textAlign(LEFT, BASELINE);
+      imageMode(CORNER);
 
       popMatrix();
       return;
@@ -47,6 +52,7 @@ class ReactionPuzzle extends GameObject {
     if (!nextRoomDelayTimer.isFinished()) { 
       rectMode(CORNER);
       textAlign(LEFT, BASELINE);
+      imageMode(CORNER);
 
       popMatrix();
       return;
@@ -61,76 +67,29 @@ class ReactionPuzzle extends GameObject {
 
     rectMode(CORNER);
     textAlign(LEFT, BASELINE);
+    imageMode(CORNER);
 
     popMatrix();
   }
 
   void display() {
-    rectMode(CENTER);
+    image(background, 250, 200, 800, 800);
 
-    strokeWeight(5);
-    stroke(64, 45, 94);
-    fill(40, 26, 61);
-    rect(posX, posY-50, 525, 625, 24);
-    fill(64, 45, 94);
-    rect(posX, posY, 480, 480, 24);
-    rect(posX, -50, 480, 80, 24);
-
-
-    //image(background, 0, -100, 500, 600);
-
-    if (solved) {
-      textSize(64);
-      fill(119, 70, 194);
-      text("Correct", posX, -50);
-    } else {
-      textSize(24);
-      fill(119, 70, 194);
-      text("Press button when pointers on target", posX, -50);
-    }
-
-    noStroke();
-    fill(100);
-    circle(posX, posY, 200);
-    fill(200);
-    circle(posX, posY, 170);
-    fill(200, 0, 0);
-    stroke(180, 0, 0);
-    circle(posX, posY, 150);
-
-
-    strokeWeight(20);
-    stroke(119, 70, 194);
-    line(posX + 200, posY - sliderSize, posX + 200, posY + sliderSize);
-    line(posX - 200, posY - sliderSize, posX - 200, posY + sliderSize);
-    line(posX - sliderSize, posY + 200, posX + sliderSize, posY + 200);
-    line(posX - sliderSize, posY - 200, posX + sliderSize, posY - 200);
-
-    noStroke();
-    fill(targetColor);
-    rect(posX + 200, posY, 20, targetSize * 2);
-    rect(posX - 200, posY, 20, targetSize * 2);
-    rect(posX, posY + 200, targetSize * 2, 20);
-    rect(posX, posY - 200, targetSize * 2, 20);
+//    if (solved) {
+//      textSize(64);
+//      fill(0);
+//      text("Correct", posX, -100);
+//    } else {
+//      textSize(32);
+//      fill(0);
+//      text("Press button when pointers on target", posX, -100);
+//    }
 
     fill(pointerColor);
-    rect(posX + 200, pointer1, 50, 20, 24);
-    rect(posX + 220, pointer1, 20, 30, 12);
-    rect(posX + 180, pointer1, 20, 30, 12);
-
-    rect(posX - 200, pointer2, 50, 20, 24);
-    rect(posX - 220, pointer2, 20, 30, 12);
-    rect(posX - 180, pointer2, 20, 30, 12);
-
-    rect(pointer3, posY + 200, 20, 50, 24);
-    rect(pointer3, posY + 220, 30, 20, 24);
-    rect(pointer3, posY + 180, 30, 20, 24);
-
-
-    rect(pointer4, posY - 200, 20, 50, 24);
-    rect(pointer4, posY - 220, 30, 20, 24);
-    rect(pointer4, posY - 180, 30, 20, 24);
-    rectMode(CORNER);
+    image(flame, posX + 200, pointer1, 150, 150);
+    image(flame, posX - 200, pointer2, 150, 150);
+    image(flame, pointer3, posY-200, 150, 150);
+    image(flame, pointer4, posY+200, 150, 150);
   }
 
   @Override

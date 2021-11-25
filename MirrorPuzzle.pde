@@ -7,25 +7,31 @@ class MirrorPuzzle extends GameObject
 
   boolean finish = false;
   boolean [] mirrorActive = new boolean[mirrors.length];
-  color laserColor = color(255, 0, 0);
+  color laserColor = color(78, 202, 222);
 
   float startY;
   float endY;
 
   Timer nextRoomDelayTimer = new Timer(2);
 
+  PImage background;
+
   MirrorPuzzle() {
     super("MirrorPuzzle", 0, 0, 0, 0);
     for (int i = 0; i < mirrors.length; i++) {
       mirrors[i] = new Mirror(i);
       mirrorActive[i] = false;
+      posX[i] = 25;
+      posY[i] = 25;
     }
     startY = 400;
     endY = 100;
-    posX[0] = 250;
+    posX[0] = 225;
     posY[0] = startY;
     target[1] = 250;
     target[3] = endY;
+
+    background = loadImage("MirrorPuzzleBackground.png");
   }
 
   void checkMirrorPos() {
@@ -96,48 +102,50 @@ class MirrorPuzzle extends GameObject
       fill(40, 26, 61);
       text("Connect the laser to the circle", 250, -50);
     }
+    
+    image(background, 250, 200, 800, 800);
 
     stroke(laserColor, 100);
-    strokeWeight(8);
-    line(0, startY, posX[0], startY);
+    strokeWeight(12);
+    line(25, startY, posX[0], startY);
     stroke(laserColor);
-    strokeWeight(3);
-    line(0, startY, posX[0], startY);
+    strokeWeight(5);
+    line(25, startY, posX[0], startY);
 
     if (mirrorActive[0]) {
       for (int i = 1; i < mirrors.length; i+=2) {
         if (mirrorActive[i]) {
           stroke(laserColor, 100);
-          strokeWeight(8);
+          strokeWeight(12);
           line(posX[i-1], posY[i-1], posX[i-1], posY[i]);
           stroke(laserColor);
-          strokeWeight(3);
+          strokeWeight(5);
           line(posX[i-1], posY[i-1], posX[i-1], posY[i]);
         } else {
           stroke(laserColor, 100);
-          strokeWeight(8);
-          line(posX[i-1], posY[i-1], posX[i-1], 0);
+          strokeWeight(12);
+          line(posX[i-1], posY[i-1], posX[i-1], 25);
           stroke(laserColor);
-          strokeWeight(3);
-          line(posX[i-1], posY[i-1], posX[i-1], 0);
+          strokeWeight(5);
+          line(posX[i-1], posY[i-1], posX[i-1], 25);
         }
       }
       if (mirrorActive[1]) {
         for (int i = 2; i < mirrors.length; i+=2) {
           if (mirrorActive[i]) {
             stroke(laserColor, 100);
-            strokeWeight(8);
+            strokeWeight(12);
             line(posX[i-1], posY[i-1], posX[i], posY[i-1]);
             stroke(laserColor);
-            strokeWeight(3);
+            strokeWeight(5);
             line(posX[i-1], posY[i-1], posX[i], posY[i-1]);
           } else {
             stroke(laserColor, 100);
-            strokeWeight(8);
-            line(posX[i-1], posY[i-1], 500, posY[i-1]);
+            strokeWeight(12);
+            line(posX[i-1], posY[i-1], 485, posY[i-1]);
             stroke(laserColor);
-            strokeWeight(3);
-            line(posX[i-1], posY[i-1], 500, posY[i-1]);
+            strokeWeight(5);
+            line(posX[i-1], posY[i-1], 485, posY[i-1]);
           }
         }
       }
@@ -145,11 +153,11 @@ class MirrorPuzzle extends GameObject
 
     if (mirrorActive[mirrors.length-1]) {
       stroke(laserColor, 100);
-      strokeWeight(8);
-      line(posX[mirrors.length-1], posY[mirrors.length-1], 500, posY[mirrors.length-1]);
+      strokeWeight(12);
+      line(posX[mirrors.length-1], posY[mirrors.length-1], 475, posY[mirrors.length-1]);
       stroke(laserColor);
-      strokeWeight(3);
-      line(posX[mirrors.length-1], posY[mirrors.length-1], 500, posY[mirrors.length-1]);
+      strokeWeight(5);
+      line(posX[mirrors.length-1], posY[mirrors.length-1], 475, posY[mirrors.length-1]);
       if (posY[mirrors.length-1] > endY - 10 && posY[mirrors.length-1] < endY + 10) {
         if (!finish) {
           finish = true;
@@ -157,16 +165,16 @@ class MirrorPuzzle extends GameObject
         }
       }
     }
-    noFill();
-    stroke(40, 26, 61);
-    strokeWeight(8);
-    rect(250, 250, 500, 500, 24);
+    //noFill();
+    //stroke(40, 26, 61);
+    //strokeWeight(8);
+    //rect(250, 250, 500, 500, 24);
 
-    fill(40, 26, 61);
-    strokeWeight(6);
-    rect(250, 120, 50, 235);
-    rect(250, 380, 50, 235);
-    circle(490, endY, 25);
+    //fill(40, 26, 61);
+    //strokeWeight(6);
+    //rect(250, 120, 50, 235);
+    //rect(250, 380, 50, 235);
+    //circle(490, endY, 25);
   }
 
   @Override 
@@ -176,6 +184,8 @@ class MirrorPuzzle extends GameObject
 
     rectMode(CENTER);
     textAlign(CENTER, CENTER);
+    imageMode(CENTER);
+
     display();
     checkMirrorPos();
     for (int i = 0; i < mirrors.length; i++) {
@@ -184,6 +194,7 @@ class MirrorPuzzle extends GameObject
 
     rectMode(CORNER);
     textAlign(LEFT, BASELINE);
+    imageMode(CORNER);
 
     popMatrix();
   }

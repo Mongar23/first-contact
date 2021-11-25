@@ -12,18 +12,14 @@ class Wire {
   float targetX;
   float targetY;
 
-  Wire(float newBaseX) {
+  Wire(float newBaseX, color newColor) {
     baseX = newBaseX;
     posY = 50;
     baseY = 450;
     posX = newBaseX;
-    targetX = random(50,450);
-    targetY = random(50, 400);
-
-    int r = int(random(255));
-    int g = int(random(255));
-    int b = int(random(255));
-    colour =  color(r, g, b);
+    targetX = random(-100,600);
+    targetY = random(-100, 400);
+    colour =  color(newColor);
   }
 
   void run(float mX, float mY) {
@@ -40,7 +36,7 @@ class Wire {
         solved = true;
         posX = targetX;
         posY = targetY;
-        colour = color(59, 122, 56);
+        colour = color(40, 162, 168);
       }
     }
   }
