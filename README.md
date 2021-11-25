@@ -17,3 +17,5 @@ For this project was made by 6 first-year students, consisting out of one design
 | Iorgu Balaban | Artist |
 | Viktor Dimitrov | Artist |
 | Bohdan Shkel | Artist |
+
+<img src="data/paintingGhost.jpg" alt="painting" height="500"/>

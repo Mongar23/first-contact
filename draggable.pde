@@ -19,8 +19,8 @@ class Draggable extends GameObject {
             y += fallSpeed;            
         }
         
-        y = (int)constrain(y, 0, windowHeight - oheight);
-        x = (int)constrain(x, 0, windowWidth - owidth);
+        x = (int)constrain(x, 0 - (owidth * 0.9f), windowWidth - (owidth * 0.1f));
+        y = (int)constrain(y, 0 - (oheight * 0.9f), isBeingDragged ? windowHeight - (oheight * 0.1f) : windowHeight - oheight);
         
         super.draw();
     }

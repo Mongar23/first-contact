@@ -43,7 +43,17 @@ void setup() {
     reactionPuzzleScene.addGameObject(reactionPuzzle);
     sceneManager.addScene(reactionPuzzleScene);
     
-    Scene kitchen = new Scene("kitchen", "kitchen-TEMP.jpg");
+    Scene kitchen = new Scene("kitchen", "11K_Background.png");
+    kitchen.addGameObject(new Draggable("10K_Bin", 293, 498, 57, 76, "10K_Bin.png"));
+    kitchen.addGameObject(new Draggable("9K_Fridge", 321, 353, 146, 231, "9K_Fridge.png"));
+    kitchen.addGameObject(new Draggable("8K_Counter", 423, 336, 416, 339, "8K_Counter.png"));
+    kitchen.addGameObject(new Draggable("7K_Table", -73, 467, 272, 187, "7K_Table.png"));
+    kitchen.addGameObject(new Draggable("6K_Chair", 364, 575, 119, 192, "6K_Chair.png"));
+    kitchen.addGameObject(new Draggable("5K_Chair", 213, 536, 121, 196, "5K_Chair.png"));
+    kitchen.addGameObject(new Draggable("4K_Chair", 440, 563, 140, 208, "4K_Chair.png"));
+    kitchen.addGameObject(new Draggable("3K_Table", 209, 630, 310, 190, "3K_Table.png"));
+    kitchen.addGameObject(new Draggable("2K_TV", -61, 255, 234, 156, "2K_TV.png"));
+    kitchen.addGameObject(new Draggable("1K_Microwave", 64, 447, 95, 59, "1K_Microwave.png"));
     kitchen.addGameObject(new MoveToSceneObject("kitchen-to-livingRoom", 100, 700, 50, 50, "arrowDown.png","livingRoom"));
     kitchen.addGameObject(new MoveToSceneObject("kitchen-to-bedRoom", 650, 700, 50, 50, "arrowDown.png","sequencePuzzle"));
     sceneManager.addScene(kitchen);
