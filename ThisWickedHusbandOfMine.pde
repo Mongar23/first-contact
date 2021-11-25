@@ -1,27 +1,34 @@
 import processing.sound.*;
+import processing.video.*;
+
+final InventoryManager inventoryManager = new InventoryManager();
+final SceneManager sceneManager = new SceneManager();
 
 final int windowWidth = 800;
 final int windowHeight = windowWidth;
 
-final SceneManager sceneManager = new SceneManager();
-final InventoryManager inventoryManager = new InventoryManager();
-
+Collectable ring;
+Collectable necklace;
+Collectable earrings;
+int gameStartTime; 
+VideoObject introVideoObject;
 SoundFile mainTheme;
 SoundFile glassCrash;
 SoundFile wrongSound;
 SoundFile correctSound;
+Timer introVideoTimer;
 
 void settings() {
     size(windowWidth, windowHeight);
 }
 
 void setup() {    
-    int startTime = millis();
+    int setupStartTime = millis();
     // --------------------------------------START UP-----------------------------------------------------------------------------------------------------------
     Collectable hallKey = new Collectable("hallKey", "key.png");
-    Collectable ring = new Collectable("ring", "The_Ring.png");
-    Collectable necklace = new Collectable("necklace", "The_Necklace.png");
-    Collectable earrings = new Collectable("earrings", "The_Earrings.png");
+    ring = new Collectable("ring", "The_Ring.png");
+    necklace = new Collectable("necklace", "The_Necklace.png");
+    earrings = new Collectable("earrings", "The_Earrings.png");
     
     mainTheme = new SoundFile(this, "mainTheme.mp3");
     mainTheme.amp(0.25f);
@@ -30,6 +37,8 @@ void setup() {
     correctSound = new SoundFile(this, "CorrectSound.mp3");
     correctSound.amp(0.75f);
     
+    Movie introVideo = new Movie(this, "intro.mp4");
+    introVideoTimer = new Timer(36);
     
     // --------------------------------------MAIN MENU----------------------------------------------------------------------------------------------------------
     Scene mainMenu = new Scene("mainMenu", "white1x1.png");
@@ -37,10 +46,15 @@ void setup() {
     startPainting.setHoverImage("paintingGhost.jpg");
     mainMenu.addGameObject(startPainting);
     mainMenu.addGameObject(new GameObject("mainMenu_logo", 570, 25, 200, 635, "logo.png"));
-    MoveToSceneObject startButton = new MoveToSceneObject("startGame", 570, 685, 200, 90, "startButton_idle.png", "livingRoom");
+    MoveToSceneObject startButton = new MoveToSceneObject("startGame", 570, 685, 200, 90, "startButton_idle.png", "introVideo");
     startButton.setHoverImage("startButton_selected.png");
     mainMenu.addGameObject(startButton);
     sceneManager.addScene(mainMenu);
+    
+    Scene introVideoScene = new Scene("introVideo", "white1x1.png");
+    introVideoObject = new VideoObject("introVideo", introVideo, 0, 150);
+    introVideoScene.addGameObject(introVideoObject);   
+    sceneManager.addScene(introVideoScene);
     
     // --------------------------------------MAIN GAME----------------------------------------------------------------------------------------------------------
     
@@ -144,13 +158,20 @@ void setup() {
     sceneManager.addScene(paintingRoom); 
     
     mainTheme.loop();
-    println("Setup time: " + (millis() - startTime) + "ms!");
+    gameStartTime = millis();
+    println("Setup time: " + (gameStartTime - setupStartTime) + "ms!");
 }
 
 void draw() {
     sceneManager.getCurrentScene().draw(windowWidth, windowHeight);
     sceneManager.getCurrentScene().updateScene();
     inventoryManager.clearMarkedForDeathCollectables();
+    
+    if (introVideoTimer.isFinished() && sceneManager.getCurrentScene().getSceneName() == "introVideo") {         
+        try{ sceneManager.goToScene("livingRoom"); }
+        catch(Exception exception) { println(exception.getMessage()); }
+    }
+    
 }
 
 void mouseMoved() {
@@ -171,4 +192,33 @@ void mouseReleased() {
 
 void mouseDragged() {
     sceneManager.getCurrentScene().mouseDragged();
+}
+
+void movieEvent(Movie m) {
+    m.read();
+}
+
+void changedScene(String sceneName) {
+    if (sceneName == "paintingRoom") { 
+        int gameCompletionTime = millis();
+        
+        int minutes = (int)((gameCompletionTime / 1000) / 60);
+        int seconds = ((int)(gameCompletionTime / 1000) % 60);
+        
+        textSize(32);
+        textAlign(CENTER, TOP);
+        
+        if (inventoryManager.containsCollectable(ring) && inventoryManager.containsCollectable(necklace) && inventoryManager.containsCollectable(earrings)) {
+            sceneManager.getCurrentScene().addGameObject(new GameObject("endCard", 119, 588, 562, 187, "succes-end-card.png"));
+            sceneManager.getCurrentScene().addGameObject(new PlainText("completionTime", "Completed in: " + minutes + ":" + seconds + "!", 140, 735));
+            return;
+        }
+        sceneManager.getCurrentScene().addGameObject(new GameObject("endCard", 119, 588, 562, 187, "failed-end-card.png"));
+        sceneManager.getCurrentScene().addGameObject(new PlainText("completionTime", "Completed in: " + minutes + ":" + seconds + "!", 135, 740));
+    }
+    
+    if (sceneName == "introVideo") {
+        introVideoObject.movie.play();        
+        introVideoTimer.start();
+    }
 }

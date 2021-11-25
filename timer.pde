@@ -2,8 +2,9 @@ class Timer {
     int savedTime; // When Timer started
     int duration; // How long Timer should last
     
-    Timer(int duration) {
-        this.duration = duration * 1000;
+    Timer(float duration) {
+        int toInt = (int)(duration * 1000);        
+        this.duration = toInt;
     }
     
     //Starting the timer

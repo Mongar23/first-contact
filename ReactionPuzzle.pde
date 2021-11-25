@@ -100,7 +100,7 @@ class ReactionPuzzle extends GameObject {
     void solve(float mX, float mY) {
         if (dist(posX, posY, mX, mY) < 75) {
             if (pointer1 > posY - targetSize && pointer1 < posY + targetSize && pointer3 > posX - targetSize && pointer3 < posX + targetSize) {
-                correctSound.play();
+                if (!correctSound.isPlaying()) { correctSound.play(); }
                 pointerColor = color(43, 135, 32);
                 solved = true;
                 nextRoomDelayTimer.start();

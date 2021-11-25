@@ -21,6 +21,7 @@ class SceneManager {
     public void goToScene(String sceneName) throws Exception {
         if (scenes.containsKey(sceneName)) {
             scenesStack.push(scenes.get(sceneName));
+            changedScene(sceneName);
         }
         else{
             throw new Exception("Scene not found with name: " + sceneName + "." + "Make sure it was added to the sceneManager.");
