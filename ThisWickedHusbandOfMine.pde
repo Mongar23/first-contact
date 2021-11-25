@@ -66,9 +66,19 @@ void setup() {
     sequencePuzzleScene.addGameObject(sequencePuzzle);
     sceneManager.addScene(sequencePuzzleScene);
     
-    Scene bedRoom = new Scene("bedRoom", "bed-room-TEMP.jpg");
+    Scene bedRoom = new Scene("bedRoom", "9B_Background.png");
     bedRoom.addGameObject(new MoveToSceneObject("bedRoom-to-kitchen", 400, 50, 50, 50, "arrowUp.png","kitchen"));
     bedRoom.addGameObject(new MoveToSceneObject("bedRoom-to-bathRoom", 400, 700, 50, 50, "arrowDown.png","mirrorPuzzle"));
+    GameObject bedMirror = new GameObject("Mirror", 183, 162, 130, 294, "8B_Mirror.png");
+    bedMirror.setClickedImage("8B_MirrorCracked.png");
+    bedRoom.addGameObject(bedMirror);
+    bedRoom.addGameObject(new Draggable("Dresser", -50, 364, 280, 204, "7B_Dresser.png"));
+    bedRoom.addGameObject(new Draggable("Bedside", 0,0, 800, 800, "6B_Bedside.png"));
+    bedRoom.addGameObject(new Draggable("Bed", 150, 380, 601, 272, "5B_Bed.png"));
+    bedRoom.addGameObject(new Draggable("Bedside", 100, 0, 800, 800, "4B_Bedside.png"));
+    bedRoom.addGameObject(new Draggable("Plant", 5, 287, 121, 85, "3B_Plant.png"));
+    bedRoom.addGameObject(new Draggable("Lamp", 400, 250, 193, 245, "2B_Lamp.png"));
+    bedRoom.addGameObject(new Draggable("Lamp1", 670, 230, 213, 275, "1B_Lamp.png"));
     sceneManager.addScene(bedRoom);
     
     Scene mirrorPuzzleScene = new Scene("mirrorPuzzle", "white1x1.png");
