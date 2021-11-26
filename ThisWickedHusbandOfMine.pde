@@ -51,7 +51,7 @@ void setup() {
     mainMenu.addGameObject(startButton);
     sceneManager.addScene(mainMenu);
     
-    Scene introVideoScene = new Scene("introVideo", "white1x1.png");
+    Scene introVideoScene = new Scene("introVideo", "black1x1.png");
     introVideoObject = new VideoObject("introVideo", introVideo, 0, 150);
     introVideoScene.addGameObject(introVideoObject);   
     sceneManager.addScene(introVideoScene);
@@ -61,7 +61,7 @@ void setup() {
     Scene livingRoom = new Scene("livingRoom", "10LR_Background.png");
     livingRoom.addGameObject(new Draggable("Painting", 775, 300, 130, 206, "9LR_Painting.png"));
     livingRoom.addGameObject(new Draggable("Lamp", 550, 400, 195, 266, "8LR_Lamp.png"));
-    livingRoom.addGameObject(new CollectableObject("ringObject", 445, 555, 100, 111, ring));
+    livingRoom.addGameObject(new CollectableObject("ringObject", 500, 565, 100, 111, ring));
     livingRoom.addGameObject(new Draggable("LoungeChair", 440, 550, 250, 134, "7LR_LoungeChair.png"));
     livingRoom.addGameObject(new Draggable("Couch", 75, 570, 336, 133, "6LR_Couch.png"));
     livingRoom.addGameObject(new Draggable("Table", 575, 615, 187, 104, "5LR_Table.png"));
@@ -210,7 +210,7 @@ void changedScene(String sceneName) {
         
         if (inventoryManager.containsCollectable(ring) && inventoryManager.containsCollectable(necklace) && inventoryManager.containsCollectable(earrings)) {
             sceneManager.getCurrentScene().addGameObject(new GameObject("endCard", 119, 588, 562, 187, "succes-end-card.png"));
-            sceneManager.getCurrentScene().addGameObject(new PlainText("completionTime", "Completed in: " + minutes + ":" + seconds + "!", 140, 735));
+            sceneManager.getCurrentScene().addGameObject(new PlainText("completionTime", "Completed in: " + minutes + ":" + seconds + "!", 225, 735));
             return;
         }
         sceneManager.getCurrentScene().addGameObject(new GameObject("endCard", 119, 588, 562, 187, "failed-end-card.png"));
